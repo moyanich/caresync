@@ -14,7 +14,9 @@ use App\Orchid\Screens\PlatformScreen;
 use App\Orchid\Screens\HumanResourceScreen;
 use App\Orchid\Screens\TaskScreen;
 
-use App\Orchid\Screens\MedicineListScreen;
+use App\Orchid\Screens\Medicine\MedicineListScreen;
+use App\Orchid\Screens\Medicine\MedicineListEditScreen;
+
 
 use App\Orchid\Screens\Role\RoleEditScreen;
 use App\Orchid\Screens\Role\RoleListScreen;
@@ -55,6 +57,9 @@ Route::screen('hr', HumanResourceScreen::class)
             ->push('Human Resource');
     });
 
+
+//-------------------------------------------------//
+
 // Platform > MedicineList
 Route::screen('medicine', MedicinelistScreen::class)
     ->name('platform.medicine')
@@ -64,7 +69,18 @@ Route::screen('medicine', MedicinelistScreen::class)
             ->push('Medicine List');
     });
 
+// Platform > MedicineList > Edit
 
+Route::screen('medicine/{medicine?}', MedicineListEditScreen::class)
+   ->name('platform.medicine.edit')
+    ->breadcrumbs(fn (Trail $trail, $medicine) => $trail
+    ->parent('platform.medicine')
+    ->push($medicine->name)
+ // ->push($medicine->name, route('platform.medicine.edit', $medicine))
+);
+
+
+//-------------------------------------------------//
 
 // Platform > System > Users > User
 Route::screen('users/{user}/edit', UserEditScreen::class)

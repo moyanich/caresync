@@ -1,16 +1,18 @@
 <?php
 
-namespace App\Orchid\Screens;
+namespace App\Orchid\Screens\Medicine;
 
 use Orchid\Screen\Screen;
 use Orchid\Screen\Fields\Input;
 use Orchid\Support\Facades\Layout;
 use Orchid\Screen\Actions\ModalToggle;
 use Orchid\Screen\Layouts\Modal;
+use Orchid\Screen\TD;
+use Orchid\Screen\Actions\Link;
+use Orchid\Screen\Layouts\Table;
 
 use App\Models\MedicineList;
 use Illuminate\Http\Request;
-
 
 
 class MedicineListScreen extends Screen
@@ -22,7 +24,9 @@ class MedicineListScreen extends Screen
      */
     public function query(): iterable
     {
-        return [];
+        return [
+            'medicinelists' => MedicineList::filters()->defaultSort('id')->paginate(),
+        ];
     }
 
     /**
@@ -32,7 +36,7 @@ class MedicineListScreen extends Screen
      */
     public function name(): ?string
     {
-        return 'MedicineListScreen';
+        return 'Medicine List';
     }
 
     /**
@@ -40,7 +44,7 @@ class MedicineListScreen extends Screen
      */
     public function description(): ?string
     {
-        return "TMedicineListScreen";
+        return "List of medicine in inventory";
     }
 
     /**
@@ -67,6 +71,17 @@ class MedicineListScreen extends Screen
     public function layout(): iterable
     {
         return [
+            Layout::table('medicinelists', [
+                TD::make('name')->sort()->filter(Input::make()),
+                TD::make('generic_name', 'Generic Name')->sort(),
+                TD::make('purchase_price', 'Purchase Price')->sort(),
+                TD::make('qty', 'Quantity')->sort(),
+                TD::make('company', 'Company')->sort(),
+                TD::make('location', 'Storage Location')->sort(),
+                TD::make('expiration_date', 'Expiration Date')->sort(),
+            ]),
+
+
             Layout::modal('medicineModal', Layout::rows([
                 Input::make('medicine.name')
                     ->title('Name:')
@@ -84,19 +99,31 @@ class MedicineListScreen extends Screen
 
                 Input::make('medicine.generic_name')
                     ->type('text')
-                    ->title('Generic Name:')
+                    ->title('Generic Name:'),
+                
+                Input::make('medicine.company')
+                    ->type('text')
+                    ->title('Company:'),
+
+                Input::make('medicine.location')
+                    ->type('text')
+                    ->title('Storage Location:'),
+
+                Input::make('medicine.expiration_date')
+                    ->type('date')
+                    ->title('Expiration Date'),
+                
+                Input::make('medicine.effects')
+                    ->type('textarea')
+                    ->title('Side Effects')
+                    ->rows(5),
             ]))
 
-        
-        
-                ->title('Add Medicine')
-                ->applyButton('Add Medicine'),
+            ->title('Add Medicine')
+            ->applyButton('Add Medicine'),
 
         ];
     } 
-
-   
-
 
     /**
      * @param \Illuminate\Http\Request $request
@@ -115,9 +142,16 @@ class MedicineListScreen extends Screen
         $medicine_list->purchase_price= $request->input('medicine.purchase_price');
         $medicine_list->qty = $request->input('medicine.qty');
         $medicine_list->generic_name = $request->input('medicine.generic_name');
-        
+        $medicine_list->company = $request->input('medicine.company');
+        $medicine_list->location = $request->input('medicine.location');
+        $medicine_list->effects = $request->input('medicine.effects');
+        $medicine_list->expiration_date = $request->input('medicine.expiration_date');
         $medicine_list->save();
     }
+
+
+
+
 
 
 }

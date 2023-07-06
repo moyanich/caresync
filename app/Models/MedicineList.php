@@ -4,11 +4,14 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use Orchid\Attachment\Attachable;
+use Orchid\Attachment\Models\Attachment;
+use Orchid\Filters\Filterable;
 use Orchid\Screen\AsSource;
 
 class MedicineList extends Model
 {
-    use HasFactory, AsSource;
+    use HasFactory, AsSource, Attachable, Filterable;
 
     /**
      * @var array
@@ -17,6 +20,26 @@ class MedicineList extends Model
         'name',
         'purchase_price',
         'qty',
-        'generic_name'
+        'generic_name',
+        'company',
+        'effects',
+        'location',
+        'expiration_date'
+    ];
+
+    /**
+     * Name of columns to which http sorting can be applied
+     *
+     * @var array
+     */
+    protected $allowedSorts = [
+        'name',
+        'purchase_price',
+        'qty',
+        'generic_name',
+        'company',
+        'effects',
+        'location',
+        'expiration_date'
     ];
 }
