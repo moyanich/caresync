@@ -63,6 +63,22 @@ class PlatformProvider extends OrchidServiceProvider
                 ->route('platform.example.cards')
                 ->divider(),
 
+
+            Menu::make('Medicine List')
+                ->icon('bag')
+                ->route('platform.medicine')
+                ->title('Medicine Management')
+                ->divider(),
+
+
+
+            Menu::make('Tasks')
+                ->icon('bag')
+                ->route('platform.humanresource')
+                ->title('Human Resource')
+                ->divider(),
+
+
             Menu::make(__('Users'))
                 ->icon('bs.people')
                 ->route('platform.systems.users')

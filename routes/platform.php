@@ -11,6 +11,11 @@ use App\Orchid\Screens\Examples\ExampleLayoutsScreen;
 use App\Orchid\Screens\Examples\ExampleScreen;
 use App\Orchid\Screens\Examples\ExampleTextEditorsScreen;
 use App\Orchid\Screens\PlatformScreen;
+use App\Orchid\Screens\HumanResourceScreen;
+use App\Orchid\Screens\TaskScreen;
+
+use App\Orchid\Screens\MedicineListScreen;
+
 use App\Orchid\Screens\Role\RoleEditScreen;
 use App\Orchid\Screens\Role\RoleListScreen;
 use App\Orchid\Screens\User\UserEditScreen;
@@ -40,6 +45,26 @@ Route::screen('profile', UserProfileScreen::class)
     ->breadcrumbs(fn (Trail $trail) => $trail
         ->parent('platform.index')
         ->push(__('Profile'), route('platform.profile')));
+
+// Platform > HR
+Route::screen('hr', HumanResourceScreen::class)
+    ->name('platform.humanresource') 
+    ->breadcrumbs(function (Trail $trail){
+        return $trail
+            ->parent('platform.index')
+            ->push('Human Resource');
+    });
+
+// Platform > MedicineList
+Route::screen('medicine', MedicinelistScreen::class)
+    ->name('platform.medicine')
+    ->breadcrumbs(function (Trail $trail){
+        return $trail
+            ->parent('platform.index')
+            ->push('Medicine List');
+    });
+
+
 
 // Platform > System > Users > User
 Route::screen('users/{user}/edit', UserEditScreen::class)
@@ -98,5 +123,8 @@ Route::screen('/form/examples/actions', ExampleActionsScreen::class)->name('plat
 Route::screen('/layout/examples/layouts', ExampleLayoutsScreen::class)->name('platform.example.layouts');
 Route::screen('/charts/examples/charts', ExampleChartsScreen::class)->name('platform.example.charts');
 Route::screen('/cards/examples/cards', ExampleCardsScreen::class)->name('platform.example.cards');
+
+Route::screen('task', TaskScreen::class)->name('platform.task');
+
 
 //Route::screen('idea', Idea::class, 'platform.screens.idea');
