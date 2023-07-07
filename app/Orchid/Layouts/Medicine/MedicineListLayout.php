@@ -26,9 +26,8 @@ class MedicineListLayout extends Table
     {
         return [
 
-            TD::make('name')->sort()->filter(Input::make()),
-                TD::make('generic_name', 'Generic Name')->sort()
-                ->render(fn (MedicineList $medicinelist) => $medicinelist->name),
+                TD::make('name')->sort()->filter(Input::make()) ->render(fn (MedicineList $medicinelist) => $medicinelist->name),
+                TD::make('generic_name', 'Generic Name')->sort(),
                 TD::make('purchase_price', 'Purchase Price')->sort(),
                 TD::make('qty', 'Quantity')->sort(),
                 TD::make('company', 'Company')->sort(),

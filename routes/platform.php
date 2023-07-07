@@ -48,6 +48,9 @@ Route::screen('profile', UserProfileScreen::class)
         ->parent('platform.index')
         ->push(__('Profile'), route('platform.profile')));
 
+
+
+//-------------------------------------------------//
 // Platform > HR
 Route::screen('hr', HumanResourceScreen::class)
     ->name('platform.humanresource')
@@ -71,12 +74,12 @@ Route::screen('medicine', MedicinelistScreen::class)
 
 //TODO: FIx breadcrumb
 // Platform > MedicineList > Edit
+//Route::screen('medicine/{medicine?}', MedicineListEditScreen::class)
 Route::screen('medicine/{medicine?}', MedicineListEditScreen::class)
    ->name('platform.medicine.edit')
     ->breadcrumbs(fn (Trail $trail, $medicine) => $trail
-    ->parent('platform.medicine.index')
-    ->push($medicine->name)
- // ->push($medicine->name, route('platform.medicine.edit', $medicine))
+        ->parent('platform.medicine.index')
+        ->push($medicine->name, route('platform.medicine.edit', $medicine))
 );
 
 
@@ -139,6 +142,8 @@ Route::screen('/form/examples/actions', ExampleActionsScreen::class)->name('plat
 Route::screen('/layout/examples/layouts', ExampleLayoutsScreen::class)->name('platform.example.layouts');
 Route::screen('/charts/examples/charts', ExampleChartsScreen::class)->name('platform.example.charts');
 Route::screen('/cards/examples/cards', ExampleCardsScreen::class)->name('platform.example.cards');
+
+
 
 Route::screen('task', TaskScreen::class)->name('platform.task');
 
