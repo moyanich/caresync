@@ -50,7 +50,7 @@ Route::screen('profile', UserProfileScreen::class)
 
 // Platform > HR
 Route::screen('hr', HumanResourceScreen::class)
-    ->name('platform.humanresource') 
+    ->name('platform.humanresource')
     ->breadcrumbs(function (Trail $trail){
         return $trail
             ->parent('platform.index')
@@ -62,19 +62,19 @@ Route::screen('hr', HumanResourceScreen::class)
 
 // Platform > MedicineList
 Route::screen('medicine', MedicinelistScreen::class)
-    ->name('platform.medicine')
+    ->name('platform.medicine.index')
     ->breadcrumbs(function (Trail $trail){
         return $trail
             ->parent('platform.index')
             ->push('Medicine List');
     });
 
+//TODO: FIx breadcrumb
 // Platform > MedicineList > Edit
-
 Route::screen('medicine/{medicine?}', MedicineListEditScreen::class)
    ->name('platform.medicine.edit')
     ->breadcrumbs(fn (Trail $trail, $medicine) => $trail
-    ->parent('platform.medicine')
+    ->parent('platform.medicine.index')
     ->push($medicine->name)
  // ->push($medicine->name, route('platform.medicine.edit', $medicine))
 );

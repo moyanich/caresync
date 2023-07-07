@@ -65,8 +65,8 @@ class PlatformProvider extends OrchidServiceProvider
 
 
             Menu::make('Medicine List')
-                ->icon('bag')
-                ->route('platform.medicine')
+                ->icon('briefcase')
+                ->route('platform.medicine.index')
                 ->title('Medicine Management')
                 ->divider(),
 

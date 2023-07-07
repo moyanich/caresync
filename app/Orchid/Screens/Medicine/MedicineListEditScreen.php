@@ -25,7 +25,7 @@ class MedicineListEditScreen extends Screen
         $medicine->get();
 
         return [
-            'medicine'       => $medicine,
+            'medicine' => $medicine,
         ];
     }
 
