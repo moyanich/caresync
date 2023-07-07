@@ -4,7 +4,6 @@ declare(strict_types=1);
 
 namespace App\Orchid\Layouts\Medicine;
 
-//use Orchid\Platform\Models\MedicineList;
 use App\Models\MedicineList;
 use Orchid\Screen\Actions\Button;
 use Orchid\Screen\Actions\DropDown;
@@ -56,8 +55,5 @@ class MedicineListLayout extends Table
 
         ];
     }
-
-
-
 
 }

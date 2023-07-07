@@ -2,17 +2,17 @@
 
 namespace App\Orchid\Screens\Medicine;
 
-use Orchid\Screen\Screen;
-
 use App\Models\MedicineList;
-use Illuminate\Http\Request;
+use Orchid\Screen\Screen;
 
 class MedicineListEditScreen extends Screen
 {
+
     /**
-     * @var Medicine
+     * @var MedicineList
      */
     public $medicine;
+
 
 
     /**
