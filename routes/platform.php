@@ -75,7 +75,7 @@ Route::screen('medicine', MedicinelistScreen::class)
 //TODO: FIx breadcrumb
 // Platform > MedicineList > Edit
 //Route::screen('medicine/{medicine?}', MedicineListEditScreen::class)
-Route::screen('medicine/{medicine?}', MedicineListEditScreen::class)
+Route::screen('medicine/{medicine}/edit', MedicineListEditScreen::class)
    ->name('platform.medicine.edit')
     ->breadcrumbs(fn (Trail $trail, $medicine) => $trail
         ->parent('platform.medicine.index')

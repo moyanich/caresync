@@ -46,6 +46,15 @@ class MedicineListEditScreen extends Screen
         return 'Edit Medicine';
     }
 
+    public function permission(): ?iterable
+    {
+        return [
+            'platform.systems.users',
+        ];
+    }
+
+
+
     /**
      * The screen's action buttons.
      *
@@ -118,12 +127,16 @@ class MedicineListEditScreen extends Screen
                     ->value('medicine.effects')
                     ->horizontal(),
 
+
                 Button::make('Submit')
-                    ->method('update')
+                    ->method('save')
                     ->canSee($this->medicine->exists)
                     ->type(Color::BASIC),
 
             ]), //->title('Textual HTML5 Inputs'),
+
+
+
 
             Layout::browsing('http://127.0.0.1:8000/telescope'),
 
@@ -133,16 +146,18 @@ class MedicineListEditScreen extends Screen
     /**
      * @return \Illuminate\Http\RedirectResponse
      */
-    public function update(MedicineList $medicinelist, Request $request)
+    public function save(Request $request, MedicineList $medicinelist)
     {
         $request->validate([
             'medicine.name' => [
-                'required',
-              //  MedicineList::unique(User::class, 'email')->ignore($user),
+                //'required',
+               // MedicineList::unique(MedicineList::class, 'name')->ignore($user),
             ],
         ]);
 
-        $medicinelist = MedicineList::findOrFail($medicinelist->id);
+        $medicinelist = MedicineList::findOrFail($request->get('id'));
+
+        //$medicinelist = MedicineList::findOrFail($medicinelist->id);
 
         $medicinelist->name = $request->input('medicine.name');
         $medicinelist->purchase_price= $request->input('medicine.purchase_price');
@@ -156,7 +171,9 @@ class MedicineListEditScreen extends Screen
 
 
         // Generic name is unique
-       // $medicinelist->fill($request->all())->save();
+        $medicinelist->fill($request->all())->save();
+
+        //$medicinelist->save();
 
         Toast::info(__('Medicine was saved.'));
 
