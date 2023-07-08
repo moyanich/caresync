@@ -129,7 +129,7 @@ class MedicineListEditScreen extends Screen
 
 
                 Button::make('Submit')
-                    ->method('save')
+                    ->method('createOrUpdate')
                     ->canSee($this->medicine->exists)
                     ->type(Color::BASIC),
 
@@ -146,11 +146,11 @@ class MedicineListEditScreen extends Screen
     /**
      * @return \Illuminate\Http\RedirectResponse
      */
-    public function save(Request $request, MedicineList $medicinelist)
+    public function createOrUpdate(Request $request)
     {
-        $request->validate([
+       /*$request->validate([
             'medicine.name' => [
-                //'required',
+                'required',
                // MedicineList::unique(MedicineList::class, 'name')->ignore($user),
             ],
         ]);
@@ -174,9 +174,12 @@ class MedicineListEditScreen extends Screen
         $medicinelist->fill($request->all())->save();
 
         //$medicinelist->save();
+        */
+
+        $this->medicine->fill($request->get('medicine'))->save();
 
         Toast::info(__('Medicine was saved.'));
 
-        return redirect()->route('platform.medicine.edit', $medicinelist->id);
+        return redirect()->route('platform.medicine.edit');
     }
 }
