@@ -178,8 +178,8 @@ class MedicineListEditScreen extends Screen
 
         $this->medicine->fill($request->get('medicine'))->save();
 
-        Toast::info(__('Medicine was saved.'));
+        Toast::info(__($this->medicine->name . ' changes were saved.'));
 
-        return redirect()->route('platform.medicine.edit');
+        return redirect()->route('platform.medicine.edit', $this->medicine->id);
     }
 }
