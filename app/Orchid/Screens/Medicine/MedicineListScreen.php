@@ -167,9 +167,4 @@ class MedicineListScreen extends Screen
         Toast::info(__('Medicine was removed'));
     }
 
-
-
-
-
-
 }

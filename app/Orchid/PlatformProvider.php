@@ -75,13 +75,12 @@ class PlatformProvider extends OrchidServiceProvider
 
             Menu::make('Add Medicine')
                 ->icon('bs.plus-square')
-                ->route('platform.medicines.create')
+                ->route('platform.medicines.create'),
+
+            Menu::make('Add Category')
+                ->icon('bs.plus-square')
+                ->route('platform.medicines.addcategory')
                 ->divider(),
-
-
-
-
-
 
 
             Menu::make('Tasks')

@@ -18,7 +18,7 @@ use App\Orchid\Screens\Medicine\MedicineCreateScreen;
 use App\Orchid\Screens\Medicine\MedicineDashboard;
 use App\Orchid\Screens\Medicine\MedicineListEditScreen;
 use App\Orchid\Screens\Medicine\MedicineListScreen;
-
+use App\Orchid\Screens\Medicine\MedicineCategoryScreen;
 
 use App\Orchid\Screens\Role\RoleEditScreen;
 use App\Orchid\Screens\Role\RoleListScreen;
@@ -90,7 +90,12 @@ Route::screen('medicines/create', MedicineCreateScreen::class)
         ->parent('platform.medicines.list')
         ->push(__('Create'), route('platform.medicines.create')));
 
-
+// Platform > Medicines > Category
+Route::screen('category', MedicineCategoryScreen::class)
+    ->name('platform.medicines.addcategory')
+    ->breadcrumbs(fn (Trail $trail) => $trail
+        ->parent('platform.medicines.list')
+        ->push(__('Create Category'), route('platform.medicines.list')));
 
 
 

@@ -13,6 +13,8 @@ class Medicine extends Model
 {
     use HasFactory, AsSource, Attachable, Filterable;
 
+    protected $table = 'medicines';
+
     /**
      * @var array
      */
