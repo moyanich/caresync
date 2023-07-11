@@ -3,8 +3,10 @@
 namespace App\Orchid\Screens\Medicine;
 
 use Orchid\Screen\Screen;
+use Orchid\Support\Facades\Layout;
 
-class Medicine extends Screen
+
+class MedicineDashboard extends Screen
 {
     /**
      * Fetch data to be displayed on the screen.
@@ -13,10 +15,7 @@ class Medicine extends Screen
      */
     public function query(): iterable
     {
-        return [
-
-
-        ];
+        return [];
     }
 
     /**
@@ -46,6 +45,10 @@ class Medicine extends Screen
      */
     public function layout(): iterable
     {
-        return [];
+        return [
+
+
+
+        ];
     }
 }

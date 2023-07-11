@@ -32,6 +32,7 @@ class MedicineListLayout extends Table
                 TD::make('qty', 'Quantity')->sort(),
                 TD::make('company', 'Company')->sort(),
                 TD::make('location', 'Storage Location')->sort(),
+                TD::make('effects', 'Side Effects'),
                 TD::make('expiration_date', 'Expiration Date')->sort(),
                 TD::make(__('Actions'))
                 ->align(TD::ALIGN_CENTER)

@@ -64,10 +64,14 @@ class PlatformProvider extends OrchidServiceProvider
                 ->divider(),
 
 
+             Menu::make('Medicine Dashboard')
+                ->icon('bs.bar-chart')
+                ->route('platform.medicines')
+                ->title('Medicine Management'),
+
             Menu::make('Medicine List')
                 ->icon('briefcase')
-                ->route('platform.medicines')
-                ->title('Medicine Management')
+                ->route('platform.medicines.list')
                 ->divider(),
 
 

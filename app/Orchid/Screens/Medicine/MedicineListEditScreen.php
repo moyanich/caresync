@@ -11,6 +11,7 @@ use Illuminate\Http\Request;
 use Orchid\Screen\Action;
 use Orchid\Screen\Actions\Button;
 use Orchid\Screen\Fields\Input;
+use Orchid\Screen\Fields\TextArea;
 use Orchid\Support\Color;
 use Orchid\Support\Facades\Layout;
 use Orchid\Support\Facades\Toast;
@@ -120,10 +121,9 @@ class MedicineListEditScreen extends Screen
                     ->value('medicine.expiration_date')
                     ->horizontal(),
 
-                Input::make('medicine.effects')
-                    ->type('textarea')
+                TextArea::make('medicine.effects')
                     ->title('Side Effects')
-                    ->rows(3)
+                    ->rows(5)
                     ->value('medicine.effects')
                     ->horizontal(),
 

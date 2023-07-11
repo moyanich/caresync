@@ -129,10 +129,6 @@ class MedicineListScreen extends Screen
 
             ->title('Add Medicine')
             ->applyButton('Add Medicine'),
-
-
-            Layout::browsing('http://127.0.0.1:8000/telescope'),
-
         ];
     }
 

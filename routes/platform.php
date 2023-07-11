@@ -14,6 +14,7 @@ use App\Orchid\Screens\PlatformScreen;
 use App\Orchid\Screens\HumanResourceScreen;
 use App\Orchid\Screens\TaskScreen;
 
+use App\Orchid\Screens\Medicine\MedicineDashboard;
 use App\Orchid\Screens\Medicine\MedicineListScreen;
 use App\Orchid\Screens\Medicine\MedicineListEditScreen;
 
@@ -62,21 +63,46 @@ Route::screen('hr', HumanResourceScreen::class)
 
 //-------------------------------------------------//
 
-// Platform > Medicines
+// Platform > Medicines > Dashboard
+
+// Platform > Medicines > List
+Route::screen('medicines/index', MedicineDashboard::class)
+    ->name('platform.medicines')
+    ->breadcrumbs(fn (Trail $trail) => $trail
+        ->parent('platform.index')
+        ->push(__('Medicine Dashboard'), route('platform.medicines')));
+
+
+// Platform > Medicines > List
+Route::screen('medicines/list', MedicinelistScreen::class)
+    ->name('platform.medicines.list')
+    ->breadcrumbs(fn (Trail $trail) => $trail
+        ->parent('platform.medicines')
+        ->push(__('Medicine Listing'), route('platform.medicines.list')));
+
+/*
 Route::screen('medicines', MedicinelistScreen::class)
     ->name('platform.medicines')
     ->breadcrumbs(fn (Trail $trail) => $trail
         ->parent('platform.index')
         ->push(__('Medicines'), route('platform.medicines')));
-
+*/
 
 //TODO: FIx breadcrumb
 // Platform > MedicineList > Edit
 Route::screen('medicine/{medicine?}', MedicineListEditScreen::class)
     ->name('platform.medicine.edit')
     ->breadcrumbs(fn (Trail $trail, $medicine) => $trail
+        ->parent('platform.medicines.list')
+        ->push($medicine->name, route('platform.medicine.edit', $medicine)));
+
+/*
+Route::screen('medicine/{medicine?}', MedicineListEditScreen::class)
+    ->name('platform.medicine.edit')
+    ->breadcrumbs(fn (Trail $trail, $medicine) => $trail
         ->parent('platform.medicines')
         ->push($medicine->name, route('platform.medicine.edit', $medicine)));
+*/
 
 
 //-------------------------------------------------//
