@@ -4,7 +4,7 @@ declare(strict_types=1);
 
 namespace App\Orchid\Layouts\Medicine;
 
-use App\Models\MedicineList;
+use App\Models\Medicine;
 use Orchid\Screen\Actions\Button;
 use Orchid\Screen\Actions\DropDown;
 use Orchid\Screen\Actions\Link;
@@ -17,7 +17,7 @@ class MedicineListLayout extends Table
     /**
      * @var string
      */
-    public $target = 'medicinelists';
+    public $target = 'medicines';
 
     /**
      * @return TD[]
@@ -26,7 +26,7 @@ class MedicineListLayout extends Table
     {
         return [
 
-                TD::make('name')->sort()->filter(Input::make()) ->render(fn (MedicineList $medicinelist) => $medicinelist->name),
+                TD::make('name')->sort()->filter(Input::make()) ->render(fn (Medicine $medicine) => $medicine->name),
                 TD::make('generic_name', 'Generic Name')->sort(),
                 TD::make('purchase_price', 'Purchase Price')->sort(),
                 TD::make('qty', 'Quantity')->sort(),
@@ -36,19 +36,19 @@ class MedicineListLayout extends Table
                 TD::make(__('Actions'))
                 ->align(TD::ALIGN_CENTER)
                 ->width('100px')
-                ->render(fn (MedicineList $medicinelist) => DropDown::make()
+                ->render(fn (Medicine $medicine) => DropDown::make()
                     ->icon('bs.three-dots-vertical')
                     ->list([
 
                         Link::make(__('Edit'))
-                            ->route('platform.medicine.edit', $medicinelist->id)
+                            ->route('platform.medicine.edit', $medicine->id)
                             ->icon('bs.pencil'),
 
                         Button::make(__('Delete'))
                             ->icon('bs.trash3')
                             ->confirm(__('Once an item is deleted, all of its resources and data will be permanently deleted. Before deleting this item, please download any data or information that you wish to retain.'))
                             ->method('remove', [
-                                'id' => $medicinelist->id,
+                                'id' => $medicine->id,
                             ]),
                     ])),
 

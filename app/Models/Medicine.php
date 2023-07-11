@@ -9,7 +9,7 @@ use Orchid\Attachment\Models\Attachment;
 use Orchid\Filters\Filterable;
 use Orchid\Screen\AsSource;
 
-class MedicineList extends Model
+class Medicine extends Model
 {
     use HasFactory, AsSource, Attachable, Filterable;
 

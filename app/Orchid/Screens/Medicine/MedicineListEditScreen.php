@@ -2,7 +2,7 @@
 
 namespace App\Orchid\Screens\Medicine;
 
-use App\Models\MedicineList;
+use App\Models\Medicine;
 use Orchid\Screen\Screen;
 
 use Orchid\Screen\Actions\Link;
@@ -18,7 +18,7 @@ use Orchid\Support\Facades\Toast;
 class MedicineListEditScreen extends Screen
 {
     /**
-     * @var MedicineList
+     * @var Medicine
      */
     public $medicine;
 
@@ -27,7 +27,7 @@ class MedicineListEditScreen extends Screen
      *
      * @return array
      */
-    public function query(MedicineList $medicine): iterable
+    public function query(Medicine $medicine): iterable
     {
         $medicine->get();
 
@@ -46,12 +46,12 @@ class MedicineListEditScreen extends Screen
         return 'Edit Medicine';
     }
 
-    public function permission(): ?iterable
+  /*  public function permission(): ?iterable
     {
         return [
             'platform.systems.users',
         ];
-    }
+    } */
 
 
 
@@ -127,16 +127,12 @@ class MedicineListEditScreen extends Screen
                     ->value('medicine.effects')
                     ->horizontal(),
 
-
-                Button::make('Submit')
+                Button::make('Update')
                     ->method('createOrUpdate')
                     ->canSee($this->medicine->exists)
                     ->type(Color::BASIC),
 
             ]), //->title('Textual HTML5 Inputs'),
-
-
-
 
             Layout::browsing('http://127.0.0.1:8000/telescope'),
 

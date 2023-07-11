@@ -4,16 +4,12 @@ declare(strict_types=1);
 
 namespace App\Orchid\Screens\Medicine;
 
-use App\Models\MedicineList;
+use App\Models\Medicine;
 use Illuminate\Http\Request;
 use Orchid\Screen\Screen;
 use Orchid\Screen\Fields\Input;
 use Orchid\Support\Facades\Layout;
 use Orchid\Screen\Actions\ModalToggle;
-use Orchid\Screen\Layouts\Modal;
-use Orchid\Screen\TD;
-use Orchid\Screen\Actions\Link;
-use Orchid\Screen\Layouts\Table;
 use App\Orchid\Layouts\Medicine\MedicineListLayout;
 use Orchid\Support\Facades\Toast;
 
@@ -30,7 +26,7 @@ class MedicineListScreen extends Screen
         return [
           /*  'medicinelists' => MedicineList::filters()->defaultSort('id')->paginate(),*/
 
-          'medicinelists' => MedicineList::filters()->defaultSort('id')->paginate(),
+          'medicines' => Medicine::filters()->defaultSort('id')->paginate(),
 
         ];
     }
@@ -65,7 +61,6 @@ class MedicineListScreen extends Screen
             ->modal('medicineModal')
             ->method('create')
             ->icon('plus'),
-
         ];
     }
 
@@ -153,21 +148,21 @@ class MedicineListScreen extends Screen
             'medicine.name' => 'required|max:255',
         ]);
 
-        $medicine_list = new MedicineList();
-        $medicine_list->name = $request->input('medicine.name');
-        $medicine_list->purchase_price= $request->input('medicine.purchase_price');
-        $medicine_list->qty = $request->input('medicine.qty');
-        $medicine_list->generic_name = $request->input('medicine.generic_name');
-        $medicine_list->company = $request->input('medicine.company');
-        $medicine_list->location = $request->input('medicine.location');
-        $medicine_list->effects = $request->input('medicine.effects');
-        $medicine_list->expiration_date = $request->input('medicine.expiration_date');
-        $medicine_list->save();
+        $medicine = new Medicine();
+        $medicine->name = $request->input('medicine.name');
+        $medicine->purchase_price= $request->input('medicine.purchase_price');
+        $medicine->qty = $request->input('medicine.qty');
+        $medicine->generic_name = $request->input('medicine.generic_name');
+        $medicine->company = $request->input('medicine.company');
+        $medicine->location = $request->input('medicine.location');
+        $medicine->effects = $request->input('medicine.effects');
+        $medicine->expiration_date = $request->input('medicine.expiration_date');
+        $medicine->save();
     }
 
     public function remove(Request $request): void
     {
-        MedicineList::findOrFail($request->get('id'))->delete();
+        Medicine::findOrFail($request->get('id'))->delete();
 
         Toast::info(__('Medicine was removed'));
     }

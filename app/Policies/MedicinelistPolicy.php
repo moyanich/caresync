@@ -2,12 +2,12 @@
 
 namespace App\Policies;
 
-use App\Models\MedicineList;
+use App\Models\Medicine;
 use App\Models\User;
 use Illuminate\Auth\Access\Response;
 use Illuminate\Auth\Access\HandlesAuthorization;
 
-class MedicinelistPolicy
+class MedicinePolicy
 {
 
     use HandlesAuthorization;
@@ -23,7 +23,7 @@ class MedicinelistPolicy
     /**
      * Determine whether the user can view the model.
      */
-    public function view(User $user, MedicineList $medicineList): bool
+    public function view(User $user, Medicine $medicine): bool
     {
         //
     }
@@ -39,17 +39,15 @@ class MedicinelistPolicy
     /**
      * Determine whether the user can update the model.
      */
-    public function update(User $user, MedicineList $medicineList): bool
+    public function update(User $user, Medicine $medicine): bool
     {
         return true;
-
-       // return $user->id === $medicineList->user_id;
     }
 
     /**
      * Determine whether the user can delete the model.
      */
-    public function delete(User $user, MedicineList $medicineList): bool
+    public function delete(User $user, Medicine $medicine): bool
     {
         //
     }
@@ -57,7 +55,7 @@ class MedicinelistPolicy
     /**
      * Determine whether the user can restore the model.
      */
-    public function restore(User $user, MedicineList $medicineList): bool
+    public function restore(User $user, Medicine $medicine): bool
     {
         //
     }
@@ -65,7 +63,7 @@ class MedicinelistPolicy
     /**
      * Determine whether the user can permanently delete the model.
      */
-    public function forceDelete(User $user, MedicineList $medicineList): bool
+    public function forceDelete(User $user, Medicine $medicine): bool
     {
         //
     }
