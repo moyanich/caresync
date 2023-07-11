@@ -54,8 +54,6 @@ class MedicineListEditScreen extends Screen
         ];
     } */
 
-
-
     /**
      * The screen's action buttons.
      *
@@ -63,12 +61,7 @@ class MedicineListEditScreen extends Screen
      */
     public function commandBar(): iterable
     {
-        return [
-            //TODO create route
-            Link::make(__('Add'))
-                ->icon('bs.plus-circle')
-               // ->route('platform.medicine.create'),
-        ];
+        return [];
     }
 
     /**

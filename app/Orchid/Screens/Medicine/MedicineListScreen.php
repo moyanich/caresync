@@ -5,14 +5,17 @@ declare(strict_types=1);
 namespace App\Orchid\Screens\Medicine;
 
 use App\Models\Medicine;
-use Illuminate\Http\Request;
-use Orchid\Screen\Screen;
-use Orchid\Screen\Fields\Input;
-use Orchid\Support\Facades\Layout;
-use Orchid\Screen\Actions\ModalToggle;
 use App\Orchid\Layouts\Medicine\MedicineListLayout;
+
+use Orchid\Screen\Screen;
+use Orchid\Screen\Actions\ModalToggle;
+use Orchid\Screen\Fields\Input;
+use Orchid\Screen\Fields\TextArea;
+
+use Orchid\Support\Facades\Layout;
 use Orchid\Support\Facades\Toast;
 
+use Illuminate\Http\Request;
 
 class MedicineListScreen extends Screen
 {
@@ -94,8 +97,7 @@ class MedicineListScreen extends Screen
                 Input::make('medicine.name')
                 ->title('Name:')
                 ->placeholder('Enter medicine name')
-                ->required()
-                ->popover('The name of the medicine to be created'),
+                ->required(),
 
                 Input::make('medicine.purchase_price')
                     ->type('number')
@@ -121,10 +123,10 @@ class MedicineListScreen extends Screen
                     ->type('date')
                     ->title('Expiration Date'),
 
-                Input::make('medicine.effects')
-                    ->type('textarea')
+                TextArea::make('medicine.effects')
                     ->title('Side Effects')
                     ->rows(5),
+
             ]))
 
             ->title('Add Medicine')
@@ -154,6 +156,8 @@ class MedicineListScreen extends Screen
         $medicine->effects = $request->input('medicine.effects');
         $medicine->expiration_date = $request->input('medicine.expiration_date');
         $medicine->save();
+
+        Toast::info(__('Medicine added.'));
     }
 
     public function remove(Request $request): void

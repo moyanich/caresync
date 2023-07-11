@@ -14,9 +14,11 @@ use App\Orchid\Screens\PlatformScreen;
 use App\Orchid\Screens\HumanResourceScreen;
 use App\Orchid\Screens\TaskScreen;
 
+use App\Orchid\Screens\Medicine\MedicineCreateScreen;
 use App\Orchid\Screens\Medicine\MedicineDashboard;
-use App\Orchid\Screens\Medicine\MedicineListScreen;
 use App\Orchid\Screens\Medicine\MedicineListEditScreen;
+use App\Orchid\Screens\Medicine\MedicineListScreen;
+
 
 use App\Orchid\Screens\Role\RoleEditScreen;
 use App\Orchid\Screens\Role\RoleListScreen;
@@ -65,7 +67,7 @@ Route::screen('hr', HumanResourceScreen::class)
 
 // Platform > Medicines > Dashboard
 
-// Platform > Medicines > List
+// Platform > Medicines
 Route::screen('medicines/index', MedicineDashboard::class)
     ->name('platform.medicines')
     ->breadcrumbs(fn (Trail $trail) => $trail
@@ -73,12 +75,25 @@ Route::screen('medicines/index', MedicineDashboard::class)
         ->push(__('Medicine Dashboard'), route('platform.medicines')));
 
 
-// Platform > Medicines > List
+// Platform > Medicines > All
 Route::screen('medicines/list', MedicinelistScreen::class)
     ->name('platform.medicines.list')
     ->breadcrumbs(fn (Trail $trail) => $trail
         ->parent('platform.medicines')
         ->push(__('Medicine Listing'), route('platform.medicines.list')));
+
+
+// Platform > Medicines > Create
+Route::screen('medicines/create', MedicineCreateScreen::class)
+    ->name('platform.medicines.create')
+    ->breadcrumbs(fn (Trail $trail) => $trail
+        ->parent('platform.medicines.list')
+        ->push(__('Create'), route('platform.medicines.create')));
+
+
+
+
+
 
 /*
 Route::screen('medicines', MedicinelistScreen::class)
