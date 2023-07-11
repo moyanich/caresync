@@ -27,10 +27,7 @@ class MedicineListScreen extends Screen
     public function query(): array
     {
         return [
-          /*  'medicinelists' => MedicineList::filters()->defaultSort('id')->paginate(),*/
-
-          'medicines' => Medicine::filters()->defaultSort('id')->paginate(),
-
+            'medicines' => Medicine::filters()->defaultSort('id')->paginate(),
         ];
     }
 

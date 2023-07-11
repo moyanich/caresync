@@ -137,34 +137,6 @@ class MedicineListEditScreen extends Screen
      */
     public function createOrUpdate(Request $request)
     {
-       /*$request->validate([
-            'medicine.name' => [
-                'required',
-               // MedicineList::unique(MedicineList::class, 'name')->ignore($user),
-            ],
-        ]);
-
-        $medicinelist = MedicineList::findOrFail($request->get('id'));
-
-        //$medicinelist = MedicineList::findOrFail($medicinelist->id);
-
-        $medicinelist->name = $request->input('medicine.name');
-        $medicinelist->purchase_price= $request->input('medicine.purchase_price');
-        $medicinelist->qty = $request->input('medicine.qty');
-        $medicinelist->generic_name = $request->input('medicine.generic_name');
-        $medicinelist->company = $request->input('medicine.company');
-        $medicinelist->location = $request->input('medicine.location');
-        $medicinelist->effects = $request->input('medicine.effects');
-        $medicinelist->expiration_date = $request->input('medicine.expiration_date');
-
-
-
-        // Generic name is unique
-        $medicinelist->fill($request->all())->save();
-
-        //$medicinelist->save();
-        */
-
         $this->medicine->fill($request->get('medicine'))->save();
 
         Toast::info(__($this->medicine->name . ' changes were saved.'));

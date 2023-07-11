@@ -5,15 +5,16 @@ namespace App\Orchid\Screens\Medicine;
 use App\Models\Category;
 use Orchid\Screen\Screen;
 
+use Orchid\Screen\Actions\Link;
 use Orchid\Screen\Actions\ModalToggle;
 use Orchid\Screen\Fields\Input;
 use Orchid\Screen\Fields\TextArea;
-use Orchid\Support\Facades\Layout;
-use Orchid\Support\Facades\Toast;
-use Orchid\Screen\Actions\Link;
-use Orchid\Screen\Layouts\Table;
+use Orchid\Screen\Actions\Button;
+use Orchid\Screen\Actions\DropDown;
 use Orchid\Screen\TD;
 
+use Orchid\Support\Facades\Layout;
+use Orchid\Support\Facades\Toast;
 
 use Illuminate\Http\Request;
 
@@ -23,7 +24,7 @@ class MedicineCategoryScreen extends Screen
     /**
      * @var string
      */
-   // public $target = 'category';
+    public $target = 'category';
 
     /**
      * Fetch data to be displayed on the screen.
@@ -55,7 +56,6 @@ class MedicineCategoryScreen extends Screen
     public function commandBar(): iterable
     {
         return [
-
             ModalToggle::make('Add Category')
             ->modal('categoryModal')
             ->method('create')
@@ -74,12 +74,32 @@ class MedicineCategoryScreen extends Screen
             Layout::table('category', [
                 TD::make('name')->sort()->filter(Input::make()),
                 TD::make('description', 'Description'),
-                TD::make('Actions')
-                ->render(function ($category) {
-                    return Link::make($category->id)
-                        ->route('platform.medicine.edit', $category);
-                }),
+                TD::make(__('Actions'))
+                    ->align(TD::ALIGN_CENTER)
+                    ->width('100px')
+                    ->render(fn (Category $category) => DropDown::make()
+                        ->icon('bs.three-dots-vertical')
+                        ->list([
+
+                            ModalToggle::make('Edit')
+                                ->modal('categoryModalEdit')
+                                ->icon('bs.pencil'),
+
+                            Link::make(__('Edit'))
+                                MedicineAddLayout::class
+                               // ->route('platform.medicine.edit', $category->id)
+                                ->icon('bs.pencil'),
+
+                            Button::make(__('Delete'))
+                                ->icon('bs.trash3')
+                                ->confirm(__('Once this item is deleted, all of its resources and data will be permanently deleted. Before deleting this item, please download any data or information that you wish to retain.'))
+                                ->method('remove', [
+                                    'id' => $category->id,
+                                ]),
+                        ])),
+
             ]),
+
 
             Layout::modal('categoryModal', Layout::rows([
                 Input::make('category.name')
@@ -116,6 +136,13 @@ class MedicineCategoryScreen extends Screen
 
         Toast::info(__('Category added.'));
 
+    }
+
+    public function remove(Request $request): void
+    {
+        Category::findOrFail($request->get('id'))->delete();
+
+        Toast::info(__('Category was removed'));
     }
 
 }
