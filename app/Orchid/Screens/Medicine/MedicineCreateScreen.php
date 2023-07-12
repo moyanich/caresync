@@ -5,7 +5,8 @@ declare(strict_types=1);
 namespace App\Orchid\Screens\Medicine;
 
 use App\Models\Medicine;
-use App\Orchid\Layouts\Medicine\MedicineAddLayout;
+use App\Models\Category;
+use App\Orchid\Layouts\Medicine\MedicineCreateLayout;
 use Orchid\Screen\Screen;
 use Orchid\Support\Facades\Layout;
 use Orchid\Support\Facades\Toast;
@@ -18,10 +19,10 @@ class MedicineCreateScreen extends Screen
      *
      * @return array
      */
-    public function query(): iterable
+    public function query(Category $category): iterable
     {
         return [
-
+            'category' => $category,
         ];
     }
 
@@ -53,7 +54,9 @@ class MedicineCreateScreen extends Screen
     public function layout(): iterable
     {
         return [
-            MedicineAddLayout::class,
+            MedicineCreateLayout::class,
+
+            Layout::browsing('http://127.0.0.1:8000/telescope'),
         ];
     }
 
@@ -66,6 +69,7 @@ class MedicineCreateScreen extends Screen
 
         $medicine = new Medicine();
         $medicine->name = $request->input('medicine.name');
+        $medicine->category_id = $request->input('medicine.category_id');
         $medicine->purchase_price= $request->input('medicine.purchase_price');
         $medicine->qty = $request->input('medicine.qty');
         $medicine->generic_name = $request->input('medicine.generic_name');

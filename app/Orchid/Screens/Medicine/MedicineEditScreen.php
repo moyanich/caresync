@@ -129,8 +129,6 @@ class MedicineEditScreen extends Screen
 
             ]), //->title('Textual HTML5 Inputs'),
 
-            Layout::browsing('http://127.0.0.1:8000/telescope'),
-
         ];
     }
 

@@ -7,7 +7,11 @@ use App\Models\Category;
 use Orchid\Screen\Actions\Button;
 use Orchid\Screen\Fields\Input;
 use Orchid\Screen\Fields\TextArea;
+use Orchid\Support\Color;
 use Orchid\Support\Facades\Layout;
+use Orchid\Support\Facades\Toast;
+
+use Illuminate\Http\Request;
 
 class MedicineCategoryEditScreen extends Screen
 {
@@ -37,7 +41,7 @@ class MedicineCategoryEditScreen extends Screen
      */
     public function name(): ?string
     {
-        return 'CategoryEditScreen';
+        return 'Category Edit Screen';
     }
 
     /**
@@ -59,26 +63,39 @@ class MedicineCategoryEditScreen extends Screen
     {
         return [
             Layout::rows([
-            Input::make('category.id') ->type('hidden'),
+                Input::make('category.name')
+                    ->title('Name:')
+                    ->value('category.name')
+                    ->horizontal()
+                    ->required(),
 
-            Input::make('category.name')
-                ->title('Name:')
-                ->value('category.name')
-                ->horizontal()
-                ->required(),
+                TextArea::make('category.description')
+                    ->title('Description')
+                    ->value('category.description')
+                    ->rows(5)
+                    ->horizontal(),
 
-            TextArea::make('category.description')
-                ->title('Description')
-                ->value('category.description')
-                ->rows(5)
-                ->horizontal(),
+                Button::make('Update')
+                    ->method('createOrUpdate')
+                    ->canSee($this->category->exists)
+                    ->type(Color::BASIC),
 
             ]), //->title('Textual HTML5 Inputs'),
 
             Layout::browsing('http://127.0.0.1:8000/telescope'),
 
-
-
         ];
+    }
+
+    /**
+     * @return \Illuminate\Http\RedirectResponse
+     */
+    public function createOrUpdate(Request $request)
+    {
+        $this->category->fill($request->get('category'))->save();
+
+        Toast::info(__($this->category->name . ' changes were saved.'));
+
+        return redirect()->route('platform.category.edit', $this->category->id);
     }
 }

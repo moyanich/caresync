@@ -5,6 +5,7 @@ declare(strict_types=1);
 namespace App\Orchid\Layouts\Medicine;
 
 use App\Models\Medicine;
+use App\Models\Category;
 use Orchid\Screen\Actions\Button;
 use Orchid\Screen\Actions\DropDown;
 use Orchid\Screen\Actions\Link;
@@ -28,6 +29,12 @@ class MedicineListLayout extends Table
 
                 TD::make('name')->sort()->filter(Input::make()) ->render(fn (Medicine $medicine) => $medicine->name),
                 TD::make('generic_name', 'Generic Name')->sort(),
+                //TD::make('name', 'Category')->fromModel(Category::class, 'id')->sort(),
+                TD::make('category_id', 'Category')->filterValue(function ($value) {
+                    $category = Category::find($value);
+                    return $category->name;
+                })->sort(),
+
                 TD::make('purchase_price', 'Purchase Price')->sort(),
                 TD::make('qty', 'Quantity')->sort(),
                 TD::make('company', 'Company')->sort(),

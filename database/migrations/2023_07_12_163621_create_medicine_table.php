@@ -22,7 +22,12 @@ return new class extends Migration
             $table->string('effects')->nullable();
             $table->string('location')->nullable();
             $table->date('expiration_date')->nullable();
+            $table->unsignedBigInteger('category_id')->nullable();
+
+            $table->foreign('category_id')->references('id')->on('category')->onDelete('set null')->onUpdate('cascade');
+
             $table->timestamps();
+            $table->softDeletes();
         });
     }
 

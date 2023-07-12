@@ -5,11 +5,13 @@ declare(strict_types=1);
 namespace App\Orchid\Screens\Medicine;
 
 use App\Models\Medicine;
+use App\Models\Category;
 use App\Orchid\Layouts\Medicine\MedicineListLayout;
 
 use Orchid\Screen\Screen;
 use Orchid\Screen\Actions\ModalToggle;
 use Orchid\Screen\Fields\Input;
+use Orchid\Screen\Fields\Select;
 use Orchid\Screen\Fields\TextArea;
 
 use Orchid\Support\Facades\Layout;
@@ -108,6 +110,10 @@ class MedicineListScreen extends Screen
                     ->type('text')
                     ->title('Generic Name:'),
 
+                Select::make('medicine.category_id')
+                    ->fromModel(Category::class, 'name', 'id')
+                    ->title('Category'),
+
                 Input::make('medicine.company')
                     ->type('text')
                     ->title('Company:'),
@@ -145,6 +151,7 @@ class MedicineListScreen extends Screen
 
         $medicine = new Medicine();
         $medicine->name = $request->input('medicine.name');
+        $medicine->category_id = $request->input('medicine.category_id');
         $medicine->purchase_price= $request->input('medicine.purchase_price');
         $medicine->qty = $request->input('medicine.qty');
         $medicine->generic_name = $request->input('medicine.generic_name');

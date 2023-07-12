@@ -10,8 +10,12 @@ use Orchid\Screen\Fields\Input;
 use Orchid\Screen\Fields\TextArea;
 use Orchid\Screen\Layouts\Rows;
 use Orchid\Support\Color;
+use Orchid\Screen\Fields\Select;
 
-class MedicineAddLayout extends Rows
+
+use App\Models\Category;
+
+class MedicineCreateLayout extends Rows
 {
 
     /**
@@ -29,10 +33,10 @@ class MedicineAddLayout extends Rows
     {
         return [
             Input::make('medicine.name')
-            ->title('Name:')
-            ->placeholder('Enter medicine name')
-            ->horizontal()
-            ->required(),
+                ->title('Name:')
+                ->placeholder('Enter medicine name')
+                ->horizontal()
+                ->required(),
 
             Input::make('medicine.purchase_price')
                 ->type('number')
@@ -47,6 +51,11 @@ class MedicineAddLayout extends Rows
             Input::make('medicine.generic_name')
                 ->type('text')
                 ->title('Generic Name:')
+                ->horizontal(),
+
+            Select::make('medicine.category_id')
+                ->fromModel(Category::class, 'name', 'id')
+                ->title('Category')
                 ->horizontal(),
 
             Input::make('medicine.company')

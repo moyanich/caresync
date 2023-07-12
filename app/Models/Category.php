@@ -12,8 +12,11 @@ class Category extends Model
 {
     use HasFactory, AsSource, Filterable;
 
+    // Table Name
     protected $table = 'category';
 
+    // Primary Key
+    public $primaryKey = 'id';
 
      /**
      * @var array
@@ -31,4 +34,15 @@ class Category extends Model
     protected $allowedSorts = [
         'name'
     ];
+
+
+     /**
+     * Get the parish associated with the employee.
+     */
+  /*  public function medicine()
+    {
+        return $this->hasOne(Medicine::class, 'id');
+    } */
+
+
 }
