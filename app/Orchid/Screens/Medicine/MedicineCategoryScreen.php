@@ -5,6 +5,8 @@ namespace App\Orchid\Screens\Medicine;
 use App\Models\Category;
 use Orchid\Screen\Screen;
 
+use App\Orchid\Layouts\Medicine\CategoryEditLayout;
+
 use Orchid\Screen\Actions\Link;
 use Orchid\Screen\Actions\ModalToggle;
 use Orchid\Screen\Fields\Input;
@@ -81,13 +83,15 @@ class MedicineCategoryScreen extends Screen
                         ->icon('bs.three-dots-vertical')
                         ->list([
 
-                            ModalToggle::make('Edit')
-                                ->modal('categoryModalEdit')
-                                ->icon('bs.pencil'),
+                            /*ModalToggle::make('Edit')
+                                ->modal('categoryEditModal')
+                                ->icon('bs.pencil')
+                                ->method('edit')
+                                ->asyncParameters([ 'id' => $category->id]),
+                                */
 
                             Link::make(__('Edit'))
-                                MedicineAddLayout::class
-                               // ->route('platform.medicine.edit', $category->id)
+                               ->route('platform.category.edit', $category->id)
                                 ->icon('bs.pencil'),
 
                             Button::make(__('Delete'))
@@ -99,7 +103,6 @@ class MedicineCategoryScreen extends Screen
                         ])),
 
             ]),
-
 
             Layout::modal('categoryModal', Layout::rows([
                 Input::make('category.name')
@@ -118,8 +121,27 @@ class MedicineCategoryScreen extends Screen
             ->applyButton('Add Category'),
 
 
+            Layout::modal('categoryEditModal', [
+                CategoryEditLayout ::class
+            ])
+                ->async('asyncCategoryEditModal')
+                ->rawClick()
+                ->applyButton(__('Save')),
+
         ];
     }
+
+    /**
+     * @param Category $category
+     *
+     * @return array
+     */
+   /* public function asyncCategoryEditModal(Category $category): array
+    {
+        return [
+            'category' => $category
+        ];
+    } */
 
     public function create(Request $request)
     {

@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace App\Orchid\Screens\Medicine;
 
 use App\Models\Medicine;
@@ -16,7 +18,7 @@ use Orchid\Support\Color;
 use Orchid\Support\Facades\Layout;
 use Orchid\Support\Facades\Toast;
 
-class MedicineListEditScreen extends Screen
+class MedicineEditScreen extends Screen
 {
     /**
      * @var Medicine

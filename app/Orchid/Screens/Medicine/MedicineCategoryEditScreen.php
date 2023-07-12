@@ -2,16 +2,14 @@
 
 namespace App\Orchid\Screens\Medicine;
 
-use App\Models\Category;
 use Orchid\Screen\Screen;
-use Orchid\Support\Facades\Layout;
+use App\Models\Category;
+use Orchid\Screen\Actions\Button;
 use Orchid\Screen\Fields\Input;
 use Orchid\Screen\Fields\TextArea;
+use Orchid\Support\Facades\Layout;
 
-use Illuminate\Http\Request;
-
-
-class CategoryEditScreen extends Screen
+class MedicineCategoryEditScreen extends Screen
 {
 
     /**
@@ -27,10 +25,8 @@ class CategoryEditScreen extends Screen
      */
     public function query(Category $category): iterable
     {
-        $category->get();
-
         return [
-            'medicine' => $category,
+            'category' => $category,
         ];
     }
 
@@ -41,7 +37,7 @@ class CategoryEditScreen extends Screen
      */
     public function name(): ?string
     {
-        return 'Edit Category';
+        return 'CategoryEditScreen';
     }
 
     /**
@@ -62,22 +58,27 @@ class CategoryEditScreen extends Screen
     public function layout(): iterable
     {
         return [
-            Layout::modal('categoryModalEdit', Layout::rows([
-                Input::make('category.name')
-                    ->title('Name:')
-                    ->value('category.name')
-                    ->horizontal()
-                    ->required(),
+            Layout::rows([
+            Input::make('category.id') ->type('hidden'),
 
-                TextArea::make('category.description')
-                    ->title('Description')
-                    ->value('category.description')
-                    ->rows(5)
-                    ->horizontal(),
-            ]))
+            Input::make('category.name')
+                ->title('Name:')
+                ->value('category.name')
+                ->horizontal()
+                ->required(),
 
-            ->title('Edit Category')
-            ->applyButton('Edit Category'),
+            TextArea::make('category.description')
+                ->title('Description')
+                ->value('category.description')
+                ->rows(5)
+                ->horizontal(),
+
+            ]), //->title('Textual HTML5 Inputs'),
+
+            Layout::browsing('http://127.0.0.1:8000/telescope'),
+
+
+
         ];
     }
 }
