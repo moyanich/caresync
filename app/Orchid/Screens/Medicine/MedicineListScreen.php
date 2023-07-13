@@ -60,9 +60,9 @@ class MedicineListScreen extends Screen
     {
         return [
             ModalToggle::make('Add Medicine')
-            ->modal('medicineModal')
-            ->method('create')
-            ->icon('plus'),
+                ->modal('medicineModal')
+                ->method('create')
+                ->icon('plus'),
         ];
     }
 
